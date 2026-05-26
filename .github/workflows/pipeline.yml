@@ -13,3 +13,15 @@ jobs:
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Semgrep - Scan code for security issues
+        uses: semgrep/semgrep-action@v1
+        with:
+          config: p/python
+
+      - name: Trivy - Scan for vulnerabilities
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: fs
+          severity: HIGH,CRITICAL
+          exit-code: '0'
